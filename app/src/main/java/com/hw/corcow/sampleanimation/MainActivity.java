@@ -9,12 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView imageView;
+    ImageView frameAniView, tweenAniView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        // Frame Animation
+        frameAniView = (ImageView)findViewById(R.id.imageView);
         Button btn = (Button)findViewById(R.id.btn_start);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,8 +52,87 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Tween Animation (View Animation)
+        tweenAniView = (ImageView)findViewById(R.id.imageView2);
+        // translate
+        btn = (Button)findViewById(R.id.btn_translate);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.translate);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+        // rotate
+        btn = (Button)findViewById(R.id.btn_rotate);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+        // scale
+        btn = (Button)findViewById(R.id.btn_scale);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.scale);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+        // alpha
+        btn = (Button)findViewById(R.id.btn_alpha);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.alpha);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+        // set1
+        btn = (Button)findViewById(R.id.btn_set1);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.set1);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+        // set2 (startOffset)
+        btn = (Button)findViewById(R.id.btn_set2);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.set2);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+        // custom animation (MyAnimation class)
+        btn = (Button)findViewById(R.id.btn_custom);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyAnimation anim = new MyAnimation();
+                // duration은 여기서!
+                anim.setDuration(1000);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+        btn = (Button)findViewById(R.id.btn_3d);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                My3DAnimation anim = new My3DAnimation();
+                // duration은 여기서!
+                anim.setDuration(1000);
+                tweenAniView.startAnimation(anim);
+            }
+        });
+
     }
 
+    // Frame Animation
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -62,12 +144,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startAnimation() {
-        AnimationDrawable d = (AnimationDrawable) imageView.getDrawable();
+        AnimationDrawable d = (AnimationDrawable) frameAniView.getDrawable();
         d.start();
     }
 
     private void stopAnimation() {
-        AnimationDrawable d = (AnimationDrawable) imageView.getDrawable();
+        AnimationDrawable d = (AnimationDrawable) frameAniView.getDrawable();
         d.stop();
     }
 
